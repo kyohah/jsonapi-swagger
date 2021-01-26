@@ -19,11 +19,11 @@ module Jsonapi
           return Jsonapi::Swagger::SerializableResource.new(@resource_class)
         elsif Object.const_defined?("#{model_class_name}Serializer")
           @resource_class = "#{model_class_name}Serializer".safe_constantize
-          case @resource_class
-          when JSONAPI::Serializer
+          unless @resource_class < JSONAPI::Serializer
             require 'jsonapi/swagger/resources/jsonapi_serializer_resource'
             return Jsonapi::Swagger::JsonapiSerializerResource.new(@resource_class)
-          when FastJsonapi::ObjectSerializer
+          end
+          unless @resource_class < FastJsonapi::ObjectSerializer
             require 'jsonapi/swagger/resources/fast_jsonapi_resource'
             return Jsonapi::Swagger::FastJsonapiResource.new(@resource_class)
           end
