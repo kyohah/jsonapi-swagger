@@ -21,8 +21,8 @@ module Jsonapi
           @resource_class = "#{model_class_name}Serializer".safe_constantize
           case @resource_class
           when JSONAPI::Serializer
-            require 'jsonapi/swagger/resources/fast_jsonapi_resource'
-            return Jsonapi::Swagger::FastJsonapiResource.new(@resource_class)
+            require 'jsonapi/swagger/resources/jsonapi_serializer_resource'
+            return Jsonapi::Swagger::JsonapiSerializerResource.new(@resource_class)
           when FastJsonapi::ObjectSerializer
             require 'jsonapi/swagger/resources/fast_jsonapi_resource'
             return Jsonapi::Swagger::FastJsonapiResource.new(@resource_class)
